@@ -1,0 +1,54 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
+from random import randint
+from time import sleep
+
+options = Options()
+options.add_argument("start-maximized")
+options.add_argument("disable-infobars")
+options.add_argument("--disable-extensions")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument('ignore-certificate-errors')
+options.add_argument("--no-sandbox")
+#options.add_argument("--remote-debugging-port=9222")
+options.headless = True
+
+PATH = "/usr/local/bin/chromedriver"
+driver = webdriver.Chrome(PATH, options=options)
+
+# Time to wait for element's presence
+driver.get('https://172.16.0.20/users/sign_in')
+
+# Sleep a random number of seconds (between 5 and 10)
+# sleep(randint(5,10))
+username = 
+password = 
+wait = WebDriverWait(driver, 20)
+wait.until(EC.visibility_of_element_located((By.ID, 'user_login')))
+# find username/email field and send the username itself to the input field
+driver.find_element(By.ID, "user_login").send_keys(username)
+# find password input field and insert password as well
+driver.find_element(By.ID, "user_password").send_keys(password)
+# click login button
+driver.find_element("name", "button").click()
+# wait the ready state to be complete
+WebDriverWait(driver=driver, timeout=10).until(
+    lambda x: x.execute_script("return document.readyState === 'complete'")
+)
+error_message = "Invalid login or password."
+# get the errors (if there are)
+errors = driver.find_elements("css selector", ".gl-alert-body")
+# html body.ui-light-gray.tab-width-8.gl-browser-firefox.gl-platform-windows.page-initialised div.layout-page.hide-when-top-nav-responsive-open.page-with-contextual-sidebar div.content-wrapper.content-wrapper-margin div.container-fluid.container-limited main#content-body.content div.page-title-holder.gl-display-flex.gl-align-items-center div.page-title-controls.gl-display-flex.gl-align-items-center.gl-gap-5 a
+# /html/body/div[3]/div/div[3]/main/div[2]/div/a[1]
+# print the errors optionally
+# for e in errors:
+#     print(e.text)
+# if we find that error message within errors, then login is failed
+if any(error_message in e.text for e in errors):
+    print("[!] Login failed")
+else:
+    print("[+] Login successful")
+driver.close()
