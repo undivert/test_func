@@ -1,0 +1,23 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.comments.CommentManager
+
+// Replace '12345' with the ID of your Jira issue
+def issueId = 12345
+
+// Replace 'My New Comment' with the updated comment text
+def updatedCommentText = "My New Comment"
+
+def issueManager = ComponentAccessor.getIssueManager()
+def commentManager = ComponentAccessor.getComponent(CommentManager)
+
+def issue = issueManager.getIssueObject(issueId)
+def currentUser = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
+
+def comment = commentManager.getLastComment(issue)
+if (comment) {
+    // Update the comment text
+    commentManager.update(currentUser, comment, updatedCommentText, false)
+    println("Comment updated successfully.")
+} else {
+    println("No comments found on the issue.")
+}
