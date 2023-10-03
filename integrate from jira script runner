@@ -1,0 +1,25 @@
+import groovyx.net.http.RESTClient
+
+// Jenkins API endpoint URL
+def jenkinsUrl = 'https://jenkins.example.com/job/YourJobName/build'
+
+// Jenkins credentials (if needed)
+def jenkinsUsername = 'yourUsername'
+def jenkinsApiToken = 'yourApiToken'
+
+// Create an HTTP client
+def client = new RESTClient(jenkinsUrl)
+
+// Set Jenkins credentials if required
+client.auth.basic(jenkinsUsername, jenkinsApiToken)
+
+// Make a POST request to trigger the Jenkins job build
+def response = client.post(contentType: 'application/json')
+
+// Check the response status
+if (response.status == 201) {
+    println("Jenkins job build triggered successfully.")
+} else {
+    println("Failed to trigger Jenkins job build. HTTP Status: ${response.status}")
+    println("Response body: ${response.data}")
+}
