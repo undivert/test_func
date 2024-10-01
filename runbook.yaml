@@ -1,0 +1,1071 @@
+NAME: cloudbees-core
+LAST DEPLOYED: Tue Oct  1 13:10:49 2024
+NAMESPACE: cjoc
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+Agents:
+  Enabled: true
+  ImagePullSecrets: null
+  SeparateNamespace:
+    Create: false
+    Enabled: false
+    Name: null
+  image:
+    registry: null
+    repository: cloudbees-core-agent
+    tag: null
+Common:
+  image:
+    pullPolicy: null
+    registry: default-route-openshift-image-registry.apps-crc.testing/cjoc
+    tag: 2.462.2.2
+Hibernation:
+  Enabled: false
+  ImagePullSecrets: null
+  NodeSelector: {}
+  PodSecurityContext: {}
+  Protected: false
+  Resources:
+    Limits:
+      Memory: 250Mi
+    Requests:
+      Cpu: 100m
+      Memory: 50Mi
+  SecurityContext:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+  Tolerations: []
+  image:
+    pullPolicy: null
+    registry: cloudbees
+    repository: managed-master-hibernation-monitor
+    tag: 410.939ddc143520
+Master:
+  Enabled: true
+  HighAvailabilitySupport: true
+  JavaOpts: null
+  OperationsCenterNamespace: null
+  image:
+    registry: null
+    repository: cloudbees-core-mm
+    tag: null
+NetworkPolicy:
+  Enabled: false
+  JMXSelectors: []
+  ingressControllerSelector: []
+OperationsCenter:
+  AgentListenerPort: 50000
+  Annotations: {}
+  CSRF:
+    ProxyCompatibility: false
+  CasC:
+    ConfigMapName: oc-casc-bundle
+    Enabled: false
+    Retriever:
+      Enabled: false
+      Resources:
+        Limits:
+          Cpu: 0.25
+          Memory: 512M
+        Requests:
+          Cpu: 0.25
+          Memory: 512M
+      containerPort: 9090
+      emailBundleUpdateActive: "false"
+      emailBundleUpdateBody: null
+      emailBundleUpdateFrom: null
+      emailBundleUpdateList: null
+      emailUpdateSubject: null
+      githubWebhooksEnabled: "true"
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: cloudbees/casc-scm-bundle-retriever
+        tag: 1.0.25
+      ocBundleAutomaticVersion: "false"
+      scmBranch: BRANCH
+      scmBundlePath: /
+      scmPollingInterval: PT20M
+      scmRepo: REPOSITORY
+      secrets:
+        adminPassword: null
+        githubWebhookSecret: null
+        scmPassword: null
+        scmUsername: null
+        secretName: null
+        smtpPassword: null
+        smtpUsername: null
+        sshConfig: null
+      smtpAuthMethods: null
+      smtpHost: null
+      smtpPort: null
+      smtpStartTls: null
+  ContainerPort: 8080
+  ContainerSecurityContext: {}
+  ContextPath: null
+  Enabled: true
+  ExtraConfigMaps: []
+  ExtraContainers: []
+  ExtraGroovyConfiguration: {}
+  ExtraInitContainers: []
+  ExtraVolumeMounts: []
+  ExtraVolumes: []
+  HealthProbeLivenessFailureThreshold: 12
+  HealthProbes: true
+  HostName: apps-crc.testing
+  ImagePullSecrets: null
+  Ingress:
+    Annotations:
+      kubernetes.io/tls-acme: "false"
+    Class: nginx
+    tls:
+      Enable: false
+      SecretName: null
+  JavaOpts: null
+  JenkinsOpts: null
+  License:
+    Evaluation:
+      Company: null
+      Email: null
+      Enabled: false
+      FirstName: null
+      LastName: null
+  LoadBalancerIP: null
+  LoadBalancerSourceRanges:
+  - 0.0.0.0/0
+  Name: cjoc
+  NodeSelector: {}
+  Platform: openshift4
+  PodSecurityContext: {}
+  Protocol: http
+  Resources:
+    Limits:
+      Cpu: 1
+      Memory: 2G
+    Requests:
+      Cpu: 1
+      Memory: 2G
+  Route:
+    tls:
+      CACertificate: null
+      Certificate: null
+      DestinationCACertificate: null
+      Enable: true
+      InsecureEdgeTerminationPolicy: Redirect
+      Key: null
+      Termination: edge
+  ServiceAgentListenerPort: 50000
+  ServiceAnnotations: {}
+  ServicePort: 80
+  ServiceType: ClusterIP
+  TmpVolumeMedium: ""
+  Tolerations: []
+  image:
+    pullPolicy: null
+    registry: null
+    repository: cloudbees-cloud-core-oc
+    tag: null
+Persistence:
+  AccessMode: ReadWriteOnce
+  Annotations: {}
+  Size: 10Gi
+  StorageClass: null
+PodSecurityPolicy:
+  Annotations: {}
+  Enabled: false
+Subdomain: true
+ingress-nginx:
+  Enabled: false
+  controller:
+    admissionWebhooks:
+      enabled: false
+    allowSnippetAnnotations: false
+    ingressClassResource:
+      name: nginx
+    nodeSelector:
+      kubernetes.io/os: linux
+    service:
+      externalTrafficPolicy: Local
+  defaultBackend:
+    nodeSelector:
+      kubernetes.io/os: linux
+rbac:
+  agentsServiceAccountAnnotations: {}
+  agentsServiceAccountName: jenkins-agents
+  hibernationMonitorServiceAccountName: managed-master-hibernation-monitor
+  install: true
+  masterServiceAccountAnnotations: {}
+  masterServiceAccountName: jenkins
+  serviceAccountAnnotations: {}
+  serviceAccountName: cjoc
+sidecarinjector:
+  Enabled: false
+
+COMPUTED VALUES:
+Agents:
+  Enabled: true
+  SeparateNamespace:
+    Create: false
+    Enabled: false
+  image:
+    repository: cloudbees-core-agent
+Common:
+  image:
+    registry: default-route-openshift-image-registry.apps-crc.testing/cjoc
+    tag: 2.462.2.2
+Hibernation:
+  Enabled: false
+  NodeSelector: {}
+  PodSecurityContext: {}
+  Protected: false
+  Resources:
+    Limits:
+      Memory: 250Mi
+    Requests:
+      Cpu: 100m
+      Memory: 50Mi
+  SecurityContext:
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+  Tolerations: []
+  image:
+    registry: cloudbees
+    repository: managed-master-hibernation-monitor
+    tag: 410.939ddc143520
+Master:
+  Enabled: true
+  HighAvailabilitySupport: true
+  image:
+    repository: cloudbees-core-mm
+NetworkPolicy:
+  Enabled: false
+  JMXSelectors: []
+  ingressControllerSelector: []
+OperationsCenter:
+  AgentListenerPort: 50000
+  Annotations: {}
+  CSRF:
+    ProxyCompatibility: false
+  CasC:
+    ConfigMapName: oc-casc-bundle
+    Enabled: false
+    Retriever:
+      Enabled: false
+      Resources:
+        Limits:
+          Cpu: 0.25
+          Memory: 512M
+        Requests:
+          Cpu: 0.25
+          Memory: 512M
+      containerPort: 9090
+      emailBundleUpdateActive: "false"
+      githubWebhooksEnabled: "true"
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: cloudbees/casc-scm-bundle-retriever
+        tag: 1.0.25
+      ocBundleAutomaticVersion: "false"
+      scmBranch: BRANCH
+      scmBundlePath: /
+      scmPollingInterval: PT20M
+      scmRepo: REPOSITORY
+      secrets: {}
+  ContainerPort: 8080
+  ContainerSecurityContext: {}
+  Enabled: true
+  ExtraConfigMaps: []
+  ExtraContainers: []
+  ExtraGroovyConfiguration: {}
+  ExtraInitContainers: []
+  ExtraVolumeMounts: []
+  ExtraVolumes: []
+  HealthProbeLivenessFailureThreshold: 12
+  HealthProbes: true
+  HostName: apps-crc.testing
+  Ingress:
+    Annotations:
+      kubernetes.io/tls-acme: "false"
+    Class: nginx
+    tls:
+      Enable: false
+  License:
+    Evaluation:
+      Enabled: false
+  LoadBalancerSourceRanges:
+  - 0.0.0.0/0
+  Name: cjoc
+  NodeSelector: {}
+  Platform: openshift4
+  PodSecurityContext: {}
+  Protocol: http
+  Resources:
+    Limits:
+      Cpu: 1
+      Memory: 2G
+    Requests:
+      Cpu: 1
+      Memory: 2G
+  Route:
+    tls:
+      Enable: true
+      InsecureEdgeTerminationPolicy: Redirect
+      Termination: edge
+  ServiceAgentListenerPort: 50000
+  ServiceAnnotations: {}
+  ServicePort: 80
+  ServiceType: ClusterIP
+  TmpVolumeMedium: ""
+  Tolerations: []
+  image:
+    repository: cloudbees-cloud-core-oc
+Persistence:
+  AccessMode: ReadWriteOnce
+  Annotations: {}
+  Size: 10Gi
+PodSecurityPolicy:
+  Annotations: {}
+  Enabled: false
+Subdomain: true
+ingress-nginx:
+  Enabled: false
+  controller:
+    admissionWebhooks:
+      enabled: false
+    allowSnippetAnnotations: false
+    ingressClassResource:
+      name: nginx
+    nodeSelector:
+      kubernetes.io/os: linux
+    service:
+      externalTrafficPolicy: Local
+  defaultBackend:
+    nodeSelector:
+      kubernetes.io/os: linux
+rbac:
+  agentsServiceAccountAnnotations: {}
+  agentsServiceAccountName: jenkins-agents
+  hibernationMonitorServiceAccountName: managed-master-hibernation-monitor
+  install: true
+  masterServiceAccountAnnotations: {}
+  masterServiceAccountName: jenkins
+  serviceAccountAnnotations: {}
+  serviceAccountName: cjoc
+sidecarinjector:
+  Enabled: false
+
+HOOKS:
+MANIFEST:
+---
+# Source: cloudbees-core/templates/agents-service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-agents
+  namespace: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+---
+# Source: cloudbees-core/templates/cjoc-service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+---
+# Source: cloudbees-core/templates/master-service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+---
+# Source: cloudbees-core/templates/agents-configmap.yaml
+# Clone of https://github.com/jenkinsci/docker-inbound-agent/blob/4.3-4/jenkins-agent
+# Normally the image will specify its own (up-to-date) launcher script and this is unused.
+# Only useful for migrations from CJE 1 where it is desirable to run a single-container agent
+# using an arbitrary image containing a JRE, in which case slave.jar will be downloaded from the master.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-agent
+  namespace: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+data:
+  jenkins-agent: |
+    #!/usr/bin/env sh
+
+    # The MIT License
+    #
+    #  Copyright (c) 2015, CloudBees, Inc.
+    #
+    #  Permission is hereby granted, free of charge, to any person obtaining a copy
+    #  of this software and associated documentation files (the "Software"), to deal
+    #  in the Software without restriction, including without limitation the rights
+    #  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    #  copies of the Software, and to permit persons to whom the Software is
+    #  furnished to do so, subject to the following conditions:
+    #
+    #  The above copyright notice and this permission notice shall be included in
+    #  all copies or substantial portions of the Software.
+    #
+    #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    #  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    #  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    #  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    #  THE SOFTWARE.
+
+    # Usage jenkins-slave.sh [options] -url http://jenkins [SECRET] [AGENT_NAME]
+    # Optional environment variables :
+    # * JENKINS_TUNNEL : HOST:PORT for a tunnel to route TCP traffic to jenkins host, when jenkins can't be directly accessed over network
+    # * JENKINS_URL : alternate jenkins URL
+    # * JENKINS_SECRET : agent secret, if not set as an argument
+    # * JENKINS_AGENT_NAME : agent name, if not set as an argument
+    # * JENKINS_AGENT_WORKDIR : agent work directory, if not set by optional parameter -workDir
+    # * JENKINS_WEB_SOCKET: true if the connection should be made via WebSocket rather than TCP
+    # * JENKINS_DIRECT_CONNECTION: Connect directly to this TCP agent port, skipping the HTTP(S) connection parameter download.
+    #                              Value: "<HOST>:<PORT>"
+    # * JENKINS_INSTANCE_IDENTITY: The base64 encoded InstanceIdentity byte array of the Jenkins master. When this is set,
+    #                              the agent skips connecting to an HTTP(S) port for connection info.
+    # * JENKINS_PROTOCOLS:         Specify the remoting protocols to attempt when instanceIdentity is provided.
+
+    if [ $# -eq 1 ]; then
+
+        # if `docker run` only has one arguments, we assume user is running alternate command like `bash` to inspect the image
+        exec "$@"
+
+    else
+
+        # if -tunnel is not provided try env vars
+        case "$@" in
+            *"-tunnel "*) ;;
+            *)
+            if [ ! -z "$JENKINS_TUNNEL" ]; then
+                TUNNEL="-tunnel $JENKINS_TUNNEL"
+            fi ;;
+        esac
+
+        # if -workDir is not provided, try env vars
+        if [ ! -z "$JENKINS_AGENT_WORKDIR" ]; then
+            case "$@" in
+                *"-workDir"*) echo "Warning: Work directory is defined twice in command-line arguments and the environment variable" ;;
+                *)
+                WORKDIR="-workDir $JENKINS_AGENT_WORKDIR" ;;
+            esac
+        fi
+
+        if [ -n "$JENKINS_URL" ]; then
+            URL="-url $JENKINS_URL"
+        fi
+
+        if [ -n "$JENKINS_NAME" ]; then
+            JENKINS_AGENT_NAME="$JENKINS_NAME"
+        fi
+
+        if [ "$JENKINS_WEB_SOCKET" = true ]; then
+            WEB_SOCKET=-webSocket
+        fi
+
+        if [ -n "$JENKINS_PROTOCOLS" ]; then
+            PROTOCOLS="-protocols $JENKINS_PROTOCOLS"
+        fi
+
+        if [ -n "$JENKINS_DIRECT_CONNECTION" ]; then
+            DIRECT="-direct $JENKINS_DIRECT_CONNECTION"
+        fi
+
+        if [ -n "$JENKINS_INSTANCE_IDENTITY" ]; then
+            INSTANCE_IDENTITY="-instanceIdentity $JENKINS_INSTANCE_IDENTITY"
+        fi
+
+        if [ -z "$JNLP_PROTOCOL_OPTS" ]; then
+            echo "Warning: JnlpProtocol3 is disabled by default, use JNLP_PROTOCOL_OPTS to alter the behavior"
+            JNLP_PROTOCOL_OPTS="-Dorg.jenkinsci.remoting.engine.JnlpProtocol3.disabled=true"
+        fi
+
+        # If both required options are defined, do not pass the parameters
+        OPT_JENKINS_SECRET=""
+        if [ -n "$JENKINS_SECRET" ]; then
+            case "$@" in
+                *"${JENKINS_SECRET}"*) echo "Warning: SECRET is defined twice in command-line arguments and the environment variable" ;;
+                *)
+                OPT_JENKINS_SECRET="${JENKINS_SECRET}" ;;
+            esac
+        fi
+
+        OPT_JENKINS_AGENT_NAME=""
+        if [ -n "$JENKINS_AGENT_NAME" ]; then
+            case "$@" in
+                *"${JENKINS_AGENT_NAME}"*) echo "Warning: AGENT_NAME is defined twice in command-line arguments and the environment variable" ;;
+                *)
+                OPT_JENKINS_AGENT_NAME="${JENKINS_AGENT_NAME}" ;;
+            esac
+        fi
+
+        SLAVE_JAR=/usr/share/jenkins/slave.jar
+        if [ ! -f "$SLAVE_JAR" ]; then
+            tmpfile=$(mktemp)
+            if hash wget > /dev/null 2>&1; then
+                wget -O "$tmpfile" "$JENKINS_URL/jnlpJars/slave.jar"
+            elif hash curl > /dev/null 2>&1; then
+                curl -o "$tmpfile" "$JENKINS_URL/jnlpJars/slave.jar"
+            else
+                echo "Image does not include $SLAVE_JAR and could not find wget or curl to download it"
+                return 1
+            fi
+            SLAVE_JAR=$tmpfile
+        fi
+
+        #TODO: Handle the case when the command-line and Environment variable contain different values.
+        #It is fine it blows up for now since it should lead to an error anyway.
+
+        exec java $JAVA_OPTS $JNLP_PROTOCOL_OPTS -cp $SLAVE_JAR hudson.remoting.jnlp.Main -headless $TUNNEL $URL $WORKDIR $WEB_SOCKET $DIRECT $PROTOCOLS $INSTANCE_IDENTITY $OPT_JENKINS_SECRET $OPT_JENKINS_AGENT_NAME "$@"
+    fi
+---
+# Source: cloudbees-core/templates/cjoc-configure-jenkins-groovy.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cjoc-configure-jenkins-groovy
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+data:
+  location.groovy: |
+    jenkins.model.JenkinsLocationConfiguration.get().setUrl("https://cjoc.apps-crc.testing/")
+---
+# Source: cloudbees-core/templates/cjoc-role-master-management.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cjoc-master-management
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - route.openshift.io
+  - ""
+  resources:
+  - routes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes/custom-host
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - list
+  - get
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - pods
+  verbs:
+  - list
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+---
+# Source: cloudbees-core/templates/controller-role-ha-discovery.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: controller-hazelcast-discovery
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+---
+# Source: cloudbees-core/templates/master-role-agents-management.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: cjoc-agents
+  namespace: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+---
+# Source: cloudbees-core/templates/cjoc-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cjoc-role-binding
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cjoc-master-management
+subjects:
+- kind: ServiceAccount
+  name: cjoc
+---
+# Source: cloudbees-core/templates/controller-rolebinding-ha-discovery.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: controller-hazelcast-discovery
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: controller-hazelcast-discovery
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+---
+# Source: cloudbees-core/templates/master-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cjoc-master-role-binding
+  namespace: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cjoc-agents
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: cjoc
+---
+# Source: cloudbees-core/templates/cjoc-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+    app.kubernetes.io/component: cjoc
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    - name: jnlp
+      port: 50000
+      targetPort: 50000
+      protocol: TCP
+  selector:
+    app.kubernetes.io/component: cjoc
+    com.cloudbees.cje.tenant: cjoc
+  type: ClusterIP
+---
+# Source: cloudbees-core/templates/cjoc-statefulset.yaml
+apiVersion: "apps/v1"
+kind: "StatefulSet"
+metadata:
+  name: cjoc
+  labels:
+    com.cloudbees.cje.type: cjoc
+    com.cloudbees.cje.tenant: cjoc
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+    app.kubernetes.io/component: cjoc
+spec:
+  selector:
+    matchLabels:
+      com.cloudbees.cje.type: cjoc
+      com.cloudbees.cje.tenant: cjoc
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  serviceName: cjoc
+  template:
+    metadata:
+      name: cjoc
+      labels:
+        com.cloudbees.cje.type: cjoc
+        com.cloudbees.cje.tenant: cjoc
+        app.kubernetes.io/instance: "cloudbees-core"
+        app.kubernetes.io/name: "cloudbees-core"
+        app.kubernetes.io/managed-by: "Helm"
+        helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+        app.kubernetes.io/component: cjoc
+    spec:
+      affinity:
+        nodeAffinity:
+          # Schedule on linux nodes only.
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                  - linux
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              # Prefer nodes where there are no masters
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: com.cloudbees.cje.type
+                      operator: In
+                      values:
+                        - master
+            - weight: 1
+              # Prefer nodes where there are no agents
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchExpressions:
+                    - key: jenkins
+                      operator: In
+                      values:
+                        - slave
+      enableServiceLinks: false
+      serviceAccountName: cjoc
+      securityContext:
+        runAsUser: 
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: jenkins
+        image: default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-cloud-core-oc:2.462.2.2
+        env:
+        - name:  MASTER_GLOBAL_JAVA_OPTIONS
+          # TODO perhaps use the map idiom from https://github.com/helm/helm/issues/3767#issuecomment-376769054
+          value: >-
+            -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-core-agent:2.462.2.2
+            -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents
+            -Dcom.cloudbees.networking.useSubdomain=true
+            -Dcom.cloudbees.networking.protocol="https"
+            -Dcom.cloudbees.networking.hostname="apps-crc.testing"
+            -Dcom.cloudbees.networking.port=443
+            -Dcom.cloudbees.networking.operationsCenterName="cjoc"
+        - name: ENVIRONMENT
+          value: KUBERNETES
+        - name: JENKINS_OPTS
+          value: >-
+            --httpPort=8080
+            --prefix=
+            
+        - name: JAVA_OPTS
+          # To allocate masters using a non-default storage class, add the following
+          # -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.storageClassName=some-storage-class
+          value: >-
+            -XshowSettings:vm
+            -Dhudson.lifecycle=hudson.lifecycle.ExitLifecycle
+            -Djenkins.model.Jenkins.slaveAgentPort=50000
+            -Djenkins.model.Jenkins.slaveAgentPortEnforce=true
+            -Dcom.cloudbees.networking.useSubdomain=true
+            -Dcom.cloudbees.networking.protocol="https"
+            -Dcom.cloudbees.networking.hostname="apps-crc.testing"
+            -Dcom.cloudbees.networking.port=443
+            -Dcom.cloudbees.networking.operationsCenterName="cjoc"
+            -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.fsGroup=
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.disableAutoConfiguration=true
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImageName="CloudBees CI - Managed Controller - 2.462.2.2"
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImage=default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-core-mm:2.462.2.2
+            -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.serviceAccount=jenkins
+            -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesClusterEndpoint.defaultServiceExposure="openShiftRoute"
+            -XX:+AlwaysActAsServerClassMachine
+            -XX:+DisableExplicitGC
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 50000
+          name: jnlp
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2G"
+          requests:
+            cpu: "1"
+            memory: "2G"
+        volumeMounts:
+        - name: jenkins-home
+          mountPath: /var/jenkins_home
+          readOnly: false
+        - name: jenkins-configure-jenkins-groovy
+          mountPath: /var/jenkins_config/configure-jenkins.groovy.d
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+        readinessProbe:
+            httpGet:
+              path: /whoAmI/api/json?tree=authenticated
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 100
+        livenessProbe:
+            httpGet:
+              path: /whoAmI/api/json?tree=authenticated
+              port: 8080
+            initialDelaySeconds: 300
+            timeoutSeconds: 5
+            failureThreshold: 12
+      volumes:
+      - name: jenkins-configure-jenkins-groovy
+        configMap:
+          name: cjoc-configure-jenkins-groovy
+      - name: tmp
+        emptyDir:
+          medium: ""
+  volumeClaimTemplates:
+  - metadata:
+      name: jenkins-home
+      labels:
+        app: cjoc
+        release: "cloudbees-core"
+        heritage: "Helm"
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: "10Gi"
+---
+# Source: cloudbees-core/templates/cjoc-route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: cjoc
+  labels:
+    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/name: "cloudbees-core"
+    app.kubernetes.io/managed-by: "Helm"
+    helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+spec:
+  host:  "cjoc.apps-crc.testing"
+  path: ""
+  to:
+    kind: Service
+    name: cjoc
+    weight: 100
+  port:
+    targetPort: http
+  wildcardPolicy: None
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+
+NOTES:
+1. Once Operations Center is up and running, get your initial admin user password by running:
+  oc rollout status sts cjoc --namespace cjoc
+  oc exec cjoc-0 --namespace cjoc -- cat /var/jenkins_home/secrets/initialAdminPassword
+2. Visit https://cjoc.apps-crc.testing/
+
+
+3. Login with the password from step 1.
+
+For more information on running CloudBees Core on Kubernetes, visit:
+https://go.cloudbees.com/docs/cloudbees-core/cloud-admin-guide/
