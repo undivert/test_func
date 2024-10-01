@@ -3,35 +3,41 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: jenkins-agents
-  namespace: cjoc
+  name: dvx-jenkins-agent-sa
+  namespace: dvx-sit
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+imagePullSecrets:
+- name: image-pull-secret
 ---
 # Source: cloudbees-core/templates/cjoc-service-account.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: cjoc
+  name: dvx-jenkins-oc-sa
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+imagePullSecrets:
+- name: image-pull-secret
 ---
 # Source: cloudbees-core/templates/master-service-account.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: jenkins
+  name: dvx-jenkins-cm-sa
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
+imagePullSecrets:
+- name: image-pull-secret
 ---
 # Source: cloudbees-core/templates/agents-configmap.yaml
 # Clone of https://github.com/jenkinsci/docker-inbound-agent/blob/4.3-4/jenkins-agent
@@ -42,7 +48,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: jenkins-agent
-  namespace: cjoc
+  namespace: dvx-sit
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
@@ -193,7 +199,7 @@ metadata:
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
 data:
   location.groovy: |
-    jenkins.model.JenkinsLocationConfiguration.get().setUrl("https://cjoc.apps-crc.testing/")
+    jenkins.model.JenkinsLocationConfiguration.get().setUrl("https://cjoc.ocpdb.sg.uobnet.com/")
 ---
 # Source: cloudbees-core/templates/cjoc-role-master-management.yaml
 kind: Role
@@ -368,7 +374,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cjoc-agents
-  namespace: cjoc
+  namespace: dvx-sit
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
@@ -432,7 +438,7 @@ roleRef:
   name: cjoc-master-management
 subjects:
 - kind: ServiceAccount
-  name: cjoc
+  name: dvx-jenkins-oc-sa
 ---
 # Source: cloudbees-core/templates/controller-rolebinding-ha-discovery.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -450,14 +456,14 @@ roleRef:
   name: controller-hazelcast-discovery
 subjects:
 - kind: ServiceAccount
-  name: jenkins
+  name: dvx-jenkins-cm-sa
 ---
 # Source: cloudbees-core/templates/master-rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cjoc-master-role-binding
-  namespace: cjoc
+  namespace: dvx-sit
   labels:
     app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
@@ -469,8 +475,8 @@ roleRef:
   name: cjoc-agents
 subjects:
 - kind: ServiceAccount
-  name: jenkins
-  namespace: cjoc
+  name: dvx-jenkins-cm-sa
+  namespace: dvx-sit
 ---
 # Source: cloudbees-core/templates/cjoc-svc.yaml
 apiVersion: v1
@@ -565,22 +571,22 @@ spec:
                       values:
                         - slave
       enableServiceLinks: false
-      serviceAccountName: cjoc
+      serviceAccountName: dvx-jenkins-oc-sa
       securityContext:
         runAsUser: 
       terminationGracePeriodSeconds: 10
       containers:
       - name: jenkins
-        image: default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-cloud-core-oc:2.462.2.2
+        image: artifactoryp.sg.uobnet.com:6555/staging-base-images/arronchangej/cloudbees/cloudbees-cloud-core-oc:2.462.2.2
         env:
         - name:  MASTER_GLOBAL_JAVA_OPTIONS
           # TODO perhaps use the map idiom from https://github.com/helm/helm/issues/3767#issuecomment-376769054
           value: >-
-            -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-core-agent:2.462.2.2
-            -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=jenkins-agents
+            -Dorg.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateStepExecution.defaultImage=artifactoryp.sg.uobnet.com:6555/staging-base-images/arronchangej/cloudbees/cloudbees-core-agent:2.462.2.2
+            -Dcom.cloudbees.jenkins.plugins.kube.ServiceAccountFilter.defaultServiceAccount=dvx-jenkins-agent-sa
             -Dcom.cloudbees.networking.useSubdomain=true
             -Dcom.cloudbees.networking.protocol="https"
-            -Dcom.cloudbees.networking.hostname="apps-crc.testing"
+            -Dcom.cloudbees.networking.hostname="ocpdb.sg.uobnet.com"
             -Dcom.cloudbees.networking.port=443
             -Dcom.cloudbees.networking.operationsCenterName="cjoc"
         - name: ENVIRONMENT
@@ -600,14 +606,14 @@ spec:
             -Djenkins.model.Jenkins.slaveAgentPortEnforce=true
             -Dcom.cloudbees.networking.useSubdomain=true
             -Dcom.cloudbees.networking.protocol="https"
-            -Dcom.cloudbees.networking.hostname="apps-crc.testing"
+            -Dcom.cloudbees.networking.hostname="ocpdb.sg.uobnet.com"
             -Dcom.cloudbees.networking.port=443
             -Dcom.cloudbees.networking.operationsCenterName="cjoc"
             -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.fsGroup=
             -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.disableAutoConfiguration=true
-            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImageName="CloudBees CI - Managed Controller - 2.462.2.2"
-            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImage=default-route-openshift-image-registry.apps-crc.testing/cjoc/cloudbees-core-mm:2.462.2.2
-            -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.serviceAccount=jenkins
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImageName="CloudBees CI - Managed Controller - 6555/staging-base-images/arronchangej/cloudbees/cloudbees-core-mm:2.462.2.2"
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImage=artifactoryp.sg.uobnet.com:6555/staging-base-images/arronchangej/cloudbees/cloudbees-core-mm:2.462.2.2
+            -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.serviceAccount=dvx-jenkins-cm-sa
             -Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesClusterEndpoint.defaultServiceExposure="openShiftRoute"
             -XX:+AlwaysActAsServerClassMachine
             -XX:+DisableExplicitGC
@@ -678,7 +684,7 @@ metadata:
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
 spec:
-  host:  "cjoc.apps-crc.testing"
+  host:  "cjoc.ocpdb.sg.uobnet.com"
   path: ""
   to:
     kind: Service
