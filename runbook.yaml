@@ -1,370 +1,3 @@
-NAME: cloudbees-core
-LAST DEPLOYED: Tue Oct  1 13:10:49 2024
-NAMESPACE: cjoc
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-USER-SUPPLIED VALUES:
-Agents:
-  Enabled: true
-  ImagePullSecrets: null
-  SeparateNamespace:
-    Create: false
-    Enabled: false
-    Name: null
-  image:
-    registry: null
-    repository: cloudbees-core-agent
-    tag: null
-Common:
-  image:
-    pullPolicy: null
-    registry: default-route-openshift-image-registry.apps-crc.testing/cjoc
-    tag: 2.462.2.2
-Hibernation:
-  Enabled: false
-  ImagePullSecrets: null
-  NodeSelector: {}
-  PodSecurityContext: {}
-  Protected: false
-  Resources:
-    Limits:
-      Memory: 250Mi
-    Requests:
-      Cpu: 100m
-      Memory: 50Mi
-  SecurityContext:
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
-    runAsNonRoot: true
-  Tolerations: []
-  image:
-    pullPolicy: null
-    registry: cloudbees
-    repository: managed-master-hibernation-monitor
-    tag: 410.939ddc143520
-Master:
-  Enabled: true
-  HighAvailabilitySupport: true
-  JavaOpts: null
-  OperationsCenterNamespace: null
-  image:
-    registry: null
-    repository: cloudbees-core-mm
-    tag: null
-NetworkPolicy:
-  Enabled: false
-  JMXSelectors: []
-  ingressControllerSelector: []
-OperationsCenter:
-  AgentListenerPort: 50000
-  Annotations: {}
-  CSRF:
-    ProxyCompatibility: false
-  CasC:
-    ConfigMapName: oc-casc-bundle
-    Enabled: false
-    Retriever:
-      Enabled: false
-      Resources:
-        Limits:
-          Cpu: 0.25
-          Memory: 512M
-        Requests:
-          Cpu: 0.25
-          Memory: 512M
-      containerPort: 9090
-      emailBundleUpdateActive: "false"
-      emailBundleUpdateBody: null
-      emailBundleUpdateFrom: null
-      emailBundleUpdateList: null
-      emailUpdateSubject: null
-      githubWebhooksEnabled: "true"
-      image:
-        pullPolicy: IfNotPresent
-        registry: docker.io
-        repository: cloudbees/casc-scm-bundle-retriever
-        tag: 1.0.25
-      ocBundleAutomaticVersion: "false"
-      scmBranch: BRANCH
-      scmBundlePath: /
-      scmPollingInterval: PT20M
-      scmRepo: REPOSITORY
-      secrets:
-        adminPassword: null
-        githubWebhookSecret: null
-        scmPassword: null
-        scmUsername: null
-        secretName: null
-        smtpPassword: null
-        smtpUsername: null
-        sshConfig: null
-      smtpAuthMethods: null
-      smtpHost: null
-      smtpPort: null
-      smtpStartTls: null
-  ContainerPort: 8080
-  ContainerSecurityContext: {}
-  ContextPath: null
-  Enabled: true
-  ExtraConfigMaps: []
-  ExtraContainers: []
-  ExtraGroovyConfiguration: {}
-  ExtraInitContainers: []
-  ExtraVolumeMounts: []
-  ExtraVolumes: []
-  HealthProbeLivenessFailureThreshold: 12
-  HealthProbes: true
-  HostName: apps-crc.testing
-  ImagePullSecrets: null
-  Ingress:
-    Annotations:
-      kubernetes.io/tls-acme: "false"
-    Class: nginx
-    tls:
-      Enable: false
-      SecretName: null
-  JavaOpts: null
-  JenkinsOpts: null
-  License:
-    Evaluation:
-      Company: null
-      Email: null
-      Enabled: false
-      FirstName: null
-      LastName: null
-  LoadBalancerIP: null
-  LoadBalancerSourceRanges:
-  - 0.0.0.0/0
-  Name: cjoc
-  NodeSelector: {}
-  Platform: openshift4
-  PodSecurityContext: {}
-  Protocol: http
-  Resources:
-    Limits:
-      Cpu: 1
-      Memory: 2G
-    Requests:
-      Cpu: 1
-      Memory: 2G
-  Route:
-    tls:
-      CACertificate: null
-      Certificate: null
-      DestinationCACertificate: null
-      Enable: true
-      InsecureEdgeTerminationPolicy: Redirect
-      Key: null
-      Termination: edge
-  ServiceAgentListenerPort: 50000
-  ServiceAnnotations: {}
-  ServicePort: 80
-  ServiceType: ClusterIP
-  TmpVolumeMedium: ""
-  Tolerations: []
-  image:
-    pullPolicy: null
-    registry: null
-    repository: cloudbees-cloud-core-oc
-    tag: null
-Persistence:
-  AccessMode: ReadWriteOnce
-  Annotations: {}
-  Size: 10Gi
-  StorageClass: null
-PodSecurityPolicy:
-  Annotations: {}
-  Enabled: false
-Subdomain: true
-ingress-nginx:
-  Enabled: false
-  controller:
-    admissionWebhooks:
-      enabled: false
-    allowSnippetAnnotations: false
-    ingressClassResource:
-      name: nginx
-    nodeSelector:
-      kubernetes.io/os: linux
-    service:
-      externalTrafficPolicy: Local
-  defaultBackend:
-    nodeSelector:
-      kubernetes.io/os: linux
-rbac:
-  agentsServiceAccountAnnotations: {}
-  agentsServiceAccountName: jenkins-agents
-  hibernationMonitorServiceAccountName: managed-master-hibernation-monitor
-  install: true
-  masterServiceAccountAnnotations: {}
-  masterServiceAccountName: jenkins
-  serviceAccountAnnotations: {}
-  serviceAccountName: cjoc
-sidecarinjector:
-  Enabled: false
-
-COMPUTED VALUES:
-Agents:
-  Enabled: true
-  SeparateNamespace:
-    Create: false
-    Enabled: false
-  image:
-    repository: cloudbees-core-agent
-Common:
-  image:
-    registry: default-route-openshift-image-registry.apps-crc.testing/cjoc
-    tag: 2.462.2.2
-Hibernation:
-  Enabled: false
-  NodeSelector: {}
-  PodSecurityContext: {}
-  Protected: false
-  Resources:
-    Limits:
-      Memory: 250Mi
-    Requests:
-      Cpu: 100m
-      Memory: 50Mi
-  SecurityContext:
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
-    runAsNonRoot: true
-  Tolerations: []
-  image:
-    registry: cloudbees
-    repository: managed-master-hibernation-monitor
-    tag: 410.939ddc143520
-Master:
-  Enabled: true
-  HighAvailabilitySupport: true
-  image:
-    repository: cloudbees-core-mm
-NetworkPolicy:
-  Enabled: false
-  JMXSelectors: []
-  ingressControllerSelector: []
-OperationsCenter:
-  AgentListenerPort: 50000
-  Annotations: {}
-  CSRF:
-    ProxyCompatibility: false
-  CasC:
-    ConfigMapName: oc-casc-bundle
-    Enabled: false
-    Retriever:
-      Enabled: false
-      Resources:
-        Limits:
-          Cpu: 0.25
-          Memory: 512M
-        Requests:
-          Cpu: 0.25
-          Memory: 512M
-      containerPort: 9090
-      emailBundleUpdateActive: "false"
-      githubWebhooksEnabled: "true"
-      image:
-        pullPolicy: IfNotPresent
-        registry: docker.io
-        repository: cloudbees/casc-scm-bundle-retriever
-        tag: 1.0.25
-      ocBundleAutomaticVersion: "false"
-      scmBranch: BRANCH
-      scmBundlePath: /
-      scmPollingInterval: PT20M
-      scmRepo: REPOSITORY
-      secrets: {}
-  ContainerPort: 8080
-  ContainerSecurityContext: {}
-  Enabled: true
-  ExtraConfigMaps: []
-  ExtraContainers: []
-  ExtraGroovyConfiguration: {}
-  ExtraInitContainers: []
-  ExtraVolumeMounts: []
-  ExtraVolumes: []
-  HealthProbeLivenessFailureThreshold: 12
-  HealthProbes: true
-  HostName: apps-crc.testing
-  Ingress:
-    Annotations:
-      kubernetes.io/tls-acme: "false"
-    Class: nginx
-    tls:
-      Enable: false
-  License:
-    Evaluation:
-      Enabled: false
-  LoadBalancerSourceRanges:
-  - 0.0.0.0/0
-  Name: cjoc
-  NodeSelector: {}
-  Platform: openshift4
-  PodSecurityContext: {}
-  Protocol: http
-  Resources:
-    Limits:
-      Cpu: 1
-      Memory: 2G
-    Requests:
-      Cpu: 1
-      Memory: 2G
-  Route:
-    tls:
-      Enable: true
-      InsecureEdgeTerminationPolicy: Redirect
-      Termination: edge
-  ServiceAgentListenerPort: 50000
-  ServiceAnnotations: {}
-  ServicePort: 80
-  ServiceType: ClusterIP
-  TmpVolumeMedium: ""
-  Tolerations: []
-  image:
-    repository: cloudbees-cloud-core-oc
-Persistence:
-  AccessMode: ReadWriteOnce
-  Annotations: {}
-  Size: 10Gi
-PodSecurityPolicy:
-  Annotations: {}
-  Enabled: false
-Subdomain: true
-ingress-nginx:
-  Enabled: false
-  controller:
-    admissionWebhooks:
-      enabled: false
-    allowSnippetAnnotations: false
-    ingressClassResource:
-      name: nginx
-    nodeSelector:
-      kubernetes.io/os: linux
-    service:
-      externalTrafficPolicy: Local
-  defaultBackend:
-    nodeSelector:
-      kubernetes.io/os: linux
-rbac:
-  agentsServiceAccountAnnotations: {}
-  agentsServiceAccountName: jenkins-agents
-  hibernationMonitorServiceAccountName: managed-master-hibernation-monitor
-  install: true
-  masterServiceAccountAnnotations: {}
-  masterServiceAccountName: jenkins
-  serviceAccountAnnotations: {}
-  serviceAccountName: cjoc
-sidecarinjector:
-  Enabled: false
-
-HOOKS:
-MANIFEST:
 ---
 # Source: cloudbees-core/templates/agents-service-account.yaml
 apiVersion: v1
@@ -373,7 +6,7 @@ metadata:
   name: jenkins-agents
   namespace: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -384,7 +17,7 @@ kind: ServiceAccount
 metadata:
   name: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -395,7 +28,7 @@ kind: ServiceAccount
 metadata:
   name: jenkins
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -411,7 +44,7 @@ metadata:
   name: jenkins-agent
   namespace: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -554,7 +187,7 @@ kind: ConfigMap
 metadata:
   name: cjoc-configure-jenkins-groovy
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -568,7 +201,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cjoc-master-management
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -717,7 +350,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: controller-hazelcast-discovery
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -737,7 +370,7 @@ metadata:
   name: cjoc-agents
   namespace: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -789,7 +422,7 @@ kind: RoleBinding
 metadata:
   name: cjoc-role-binding
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -807,7 +440,7 @@ kind: RoleBinding
 metadata:
   name: controller-hazelcast-discovery
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -826,7 +459,7 @@ metadata:
   name: cjoc-master-role-binding
   namespace: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -845,7 +478,7 @@ kind: Service
 metadata:
   name: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -873,7 +506,7 @@ metadata:
   labels:
     com.cloudbees.cje.type: cjoc
     com.cloudbees.cje.tenant: cjoc
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -893,7 +526,7 @@ spec:
       labels:
         com.cloudbees.cje.type: cjoc
         com.cloudbees.cje.tenant: cjoc
-        app.kubernetes.io/instance: "cloudbees-core"
+        app.kubernetes.io/instance: "release-name"
         app.kubernetes.io/name: "cloudbees-core"
         app.kubernetes.io/managed-by: "Helm"
         helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -1025,7 +658,7 @@ spec:
       name: jenkins-home
       labels:
         app: cjoc
-        release: "cloudbees-core"
+        release: "release-name"
         heritage: "Helm"
     spec:
       accessModes:
@@ -1040,7 +673,7 @@ kind: Route
 metadata:
   name: cjoc
   labels:
-    app.kubernetes.io/instance: "cloudbees-core"
+    app.kubernetes.io/instance: "release-name"
     app.kubernetes.io/name: "cloudbees-core"
     app.kubernetes.io/managed-by: "Helm"
     helm.sh/chart: "cloudbees-core-3.19005.0_21d3f150a75f"
@@ -1057,15 +690,3 @@ spec:
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
-
-NOTES:
-1. Once Operations Center is up and running, get your initial admin user password by running:
-  oc rollout status sts cjoc --namespace cjoc
-  oc exec cjoc-0 --namespace cjoc -- cat /var/jenkins_home/secrets/initialAdminPassword
-2. Visit https://cjoc.apps-crc.testing/
-
-
-3. Login with the password from step 1.
-
-For more information on running CloudBees Core on Kubernetes, visit:
-https://go.cloudbees.com/docs/cloudbees-core/cloud-admin-guide/
